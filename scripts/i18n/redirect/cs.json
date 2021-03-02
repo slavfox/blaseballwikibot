@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dontlietome7",
+			"Dvorapa",
+			"JAn Dudík",
+			"Jezevec",
+			"Patriccck",
+			"Patrik L.",
+			"Spiffyk",
+			"Vks"
+		]
+	},
+	"redirect-broken-redirect-template": "{{smazat|přerušené přesměrování}}",
+	"redirect-fix-broken-moved": "robot: oprava přerušeného přesměrování na přesunutou cílovou stránku %(to)s",
+	"redirect-fix-double": "robot: oprava dvojitého přesměrování na „%(to)s“",
+	"redirect-fix-loop": "robot: oprava smyčky přesměrování na %(to)s",
+	"redirect-remove-broken": "robot: přerušené přesměrování",
+	"redirect-remove-loop": "robot: smyčka přesměrování"
+}

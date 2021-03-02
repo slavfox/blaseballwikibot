@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dvorapa",
+			"Juandev",
+			"Patriccck",
+			"Patrik L."
+		]
+	},
+	"unprotect-category": "robot: odemknutí všech stránek v kategorii %(cat)s",
+	"unprotect-images": "robot: odemknutí všech souborů na stránce %(page)s",
+	"unprotect-links": "robot: odemknutí všech stránek odkazovaných z %(page)s",
+	"unprotect-ref": "robot: odemknutí všech stránek zmíněných na stránce %(page)s",
+	"unprotect-simple": "robot: odemknutí souborů ze seznamu"
+}

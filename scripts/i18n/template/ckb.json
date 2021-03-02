@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Asoxor",
+			"ئارام بکر"
+		]
+	},
+	"template-changing": "بۆت: گۆڕینی {{PLURAL:%(num)d|داڕێژە|داڕێژەکان}}: %(list)s",
+	"template-removing": "بۆت: لابردنی {{PLURAL:%(num)d|داڕێژە|داڕێژەکان}}: %(list)s",
+	"template-substituting": "بۆت: لەجێدانانی {{PLURAL:%(num)d|داڕێژە|داڕێژەکان}}: %(list)s"
+}

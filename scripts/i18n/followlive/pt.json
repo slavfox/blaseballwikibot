@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Leogregianin",
+			"Waldir",
+			"Waldyrious"
+		]
+	},
+	"followlive-blanking": "Apagado, conteúdo era '%(content)s'."
+}

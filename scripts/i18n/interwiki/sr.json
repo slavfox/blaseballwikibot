@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Acamicamacaraca",
+			"BadDog",
+			"Milicevic01",
+			"Rancher"
+		]
+	},
+	"interwiki-adding": "Бот: додајем %(adding)s",
+	"interwiki-adding-modifying": "Бот: додајем %(adding)s; мењам %(modifying)s",
+	"interwiki-adding-removing": "Бот: додајем %(adding)s; уклањам %(removing)s",
+	"interwiki-adding-removing-modifying": "Бот: додајем %(adding)s; уклањам %(removing)s; мењам %(modifying)s",
+	"interwiki-modifying": "Бот: мењам %(modifying)s",
+	"interwiki-modifying-from": "Бот: мењам %(from)s у %(modifying)s",
+	"interwiki-removing": "Бот: уклањам %(removing)s",
+	"interwiki-removing-modifying": "Бот: уклањам %(removing)s; измењено %(modifying)s"
+}

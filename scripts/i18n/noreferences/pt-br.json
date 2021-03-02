@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira",
+			"Eduardoaddad",
+			555
+		]
+	},
+	"noreferences-add-tag": "Bot: Adicionando tag <references />",
+	"noreferences-fix-tag": "Robô: Correção de sintaxe inválida da marca <references />"
+}

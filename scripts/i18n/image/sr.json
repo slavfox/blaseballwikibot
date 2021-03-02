@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Acamicamacaraca",
+			"BadDog",
+			"Milicevic01",
+			"Rancher"
+		]
+	},
+	"image-remove": "Бот: уклањам датотеку %(file)s",
+	"image-replace": "Бот: замењујем датотеку %(old)s са %(new)s"
+}

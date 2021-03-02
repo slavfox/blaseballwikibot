@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Optilete",
+			"SPQRobin",
+			"Siebrand",
+			"Sjoerddebruin",
+			"Xqt"
+		]
+	},
+	"archivebot-archive-full": "(ARCHIEF VOL)",
+	"archivebot-archive-summary": "Robot: %(count)d  {{PLURAL:%(count)d|onderwerp|onderwerpen}} gearchiveerd van [[%(from)s]]",
+	"archivebot-older-than": "{{PLURAL:%(count)d|ouder}} dan %(duration)s",
+	"archivebot-page-summary": "Robot: %(count)d {{PLURAL:%(count)d|onderwerp|onderwerpen}} gearchiveerd naar %(archives)s (%(why)s)"
+}

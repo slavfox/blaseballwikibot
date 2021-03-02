@@ -1,0 +1,3 @@
+#LWP-Cookies-2.0
+Set-Cookie3: my_wiki_BPsession=eu1ijv791j0jvimie42oc6mcfc8s8tuo; path="/"; domain="www.blaseball.wiki"; path_spec; secure; discard; HttpOnly=None; version=0
+Set-Cookie3: my_wiki_session=b91lphsfb9j33vrmi672n330kta4l7t4; path="/"; domain="www.blaseball.wiki"; path_spec; secure; discard; HttpOnly=None; version=0

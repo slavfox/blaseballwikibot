@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Asoxor",
+			"ئارام بکر"
+		]
+	},
+	"noreferences-add-tag": "بۆت: زیادکردنی تاگی بەجێماوی <references />",
+	"noreferences-fix-tag": "بۆت: چاککردنەوەی سینتاکسی نادروستی تاگی <references />"
+}

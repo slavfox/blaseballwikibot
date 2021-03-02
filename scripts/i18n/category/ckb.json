@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Asoxor",
+			"Calak",
+			"ئارام بکر"
+		]
+	},
+	"category-adding": "بۆت: زیادکردنی پۆل [[:Category:%(newcat)s|%(newcat)s]]",
+	"category-also-in": "(ھەروەھا لە %(alsocat)s)",
+	"category-listifying": "بۆت: پێرستکردنی %(fromcat)s ({{PLURAL:%(num)d|١ بابەت|%(num)d بابەت}})",
+	"category-removing": "بۆت: لابردن لە %(oldcat)s",
+	"category-renamed": "بۆت: گوازرایەوە لە %(oldcat)s. دانەران: %(authors)s",
+	"category-replacing": "بۆت: دانانی پۆلی %(newcat)s لە جێگەی  %(oldcat)s",
+	"category-section-title": "مێژووی پەڕەی %(oldcat)sی پێشوو",
+	"category-version-history": "بۆت: مێژووی پێداچوونەوەی %(oldcat)sی پێشوو",
+	"category-was-moved": "بۆت: پۆل گوازرایەوە بۆ [[:Category:%(newcat)s|%(title)s]]"
+}

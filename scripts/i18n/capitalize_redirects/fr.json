@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Boniface",
+			"Od1n",
+			"Verdy p"
+		]
+	},
+	"capitalize_redirects-create-redirect": "Robot : création d’une redirection vers [[%(to)s]]"
+}

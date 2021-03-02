@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16",
+			"Filnik",
+			"Rotem Liss",
+			"xqt"
+		]
+	},
+	"checkimages-deletion-comment": "Bot: aggiungo %(adding)s",
+	"checkimages-doubles-file-comment": "Bot: file già su Commons, può essere cancellato",
+	"checkimages-doubles-head": "File doppio",
+	"checkimages-doubles-talk-comment": "Bot: notifico il file doppio trovato",
+	"checkimages-log-comment": "Bot: aggiorno il log",
+	"checkimages-no-license-head": "File senza licenza",
+	"checkimages-source-tag-comment": "Bot: Aggiungo unverified",
+	"checkimages-source-notice-comment": "Bot: richiedo informazioni sulla fonte",
+	"checkimages-unknown-extension-head": "Estensione sconosciuta!",
+	"checkimages-unknown-extension-msg": "Il file %(file)s sembra che abbia un'estensione non corretta, verifica."
+}

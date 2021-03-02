@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"TomášPolonec"
+		]
+	},
+	"reflinks-autogen": "vytvorené automaticky",
+	"reflinks-comment": "Názov vygenerovaný botom",
+	"reflinks-msg": "Bot: pridanie popiskov referenciám na zabránenie duplicít, viď [[%(manual)s|FAQ]]"
+}
