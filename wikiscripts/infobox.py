@@ -43,6 +43,13 @@ def process_infobox(player, templates):
         if wiki_stars != value:
             true_template.set_arg(name, f'{{{{Star Rating|{value}}}}}', preserve_spacing=True)
 
+    def set_modifications():
+        playermods = player.perm_attr + player.seas_attr  # anything shorter and i don't care
+        mod_text = [f'{{{{Modif|{element.value.lower()}}}}}' for idx, element in enumerate(playermods)]
+        mod_text = '<br />'.join(mod_text)
+        set_template('modifications', mod_text)
+
+    set_modifications()
     set_wiki_stars('batting', player.batting_stars)
     set_wiki_stars('pitching', player.pitching_stars)
     set_wiki_stars('baserunning', player.baserunning_stars)
@@ -53,6 +60,8 @@ def process_infobox(player, templates):
     set_template('fate', str(player.fate))
     set_template('soulscream', player.soulscream)
     set_template('uuid', player.id)
+    set_template('armor', player.armor.text if player.armor else 'None')
+    set_template('item', get_item_name(player.bat))
 
     return templates
 
@@ -259,17 +268,18 @@ def main(player_id, player_ids):
         teams = Team.load_all()
 
         for team in teams.values():
-            for batter in team.lineup:
-                (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', False)
+            if team.stadium != None:
+                for batter in team.lineup:
+                    (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', False)
 
-            for pitcher in team.rotation:
-                (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', False)
+                for pitcher in team.rotation:
+                    (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', False)
 
-            for batter in team.bench:
-                (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', True)
+                for batter in team.bench:
+                    (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', True)
 
-            for pitcher in team.bullpen:
-                (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', True)
+                for pitcher in team.bullpen:
+                    (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', True)
 
     print(f'Updated {page_count} pages. Error count: {error_count}.')
 
