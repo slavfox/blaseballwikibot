@@ -15,20 +15,22 @@ teams = Team.load_all()
 info = PlayerInfo()
 
 outcomes_dict = {
-    'Incineration': re.compile(f'Rogue Umpire incinerated {name_re} (?:pitch|hitt)er {Player1_re}! Replaced by {Player2_re}'),
-    'Shuffle': re.compile(f'The {Team1_re} (had several players|were completely|had their \\w+) shuffled in the Reverb!'),
-    'Feedback': re.compile(f'{Player1_re} and {Player2_re} switched teams in the feedback!'),
-    'Reverberating': re.compile(f'{Player1_re} is now Reverberating wildly!'),
-    'Blooddrain': re.compile(f'The Blooddrain gurgled! {Player1_re} siphoned some of {Player2_re}\'s {Notes_re} ability!'),
-    'Chain': re.compile(f'The Instability (?:chains|spreads) to the {name_re}\'s {Player1_re}!'),
-    'Hit By Pitch': re.compile(f'{Player1_re} hits {Player2_re} with a pitch! {name_re} is now {Notes_re}!'),
-    'Party': re.compile(f'{Player1_re} is Partying!'),
-    'Peanut': re.compile(f'[\\w ]+ (?:pitch|hitt)er {Player1_re} swallowed a stray Peanut and had an? {Notes_re} reaction!'),
-    'Red Hot': re.compile(f'{Player1_re} is (no longer )?Red Hot'),
-    'Deshelling': re.compile(f'The Birds pecked {Player1_re} free!'),
-    'Big Peanut': re.compile(f'A Big Peanut crashes into the field, encasing {Player1_re}!'),
-    'Sun 2': re.compile(f'Sun 2 set a Win upon the {Team1_re}'),
-    'Black Hole': re.compile(f'The Black Hole swallowed a Win from the {Team1_re}!')
+    'Shelling': re.compile(f'{Player1_re} tasted the infinite and Shelled {Player2_re}!', re.IGNORECASE),
+ #   'Incineration': re.compile(f'Rogue Umpire incinerated {name_re} (?:pitch|hitt)er {Player1_re}! Replaced by {Player2_re}', re.IGNORECASE),
+    'Incineration': re.compile(f'Rogue Umpire incinerated {Player1_re}!', re.IGNORECASE),
+    'Shuffle': re.compile(f'The {Team1_re} (had several players|were completely|had their \\w+) shuffled in the Reverb!', re.IGNORECASE),
+    'Feedback': re.compile(f'{Player1_re} and {Player2_re} switched teams in the feedback!', re.IGNORECASE),
+    'Reverberating': re.compile(f'{Player1_re} is now Reverberating wildly!', re.IGNORECASE),
+    'Blooddrain': re.compile(f'The Blooddrain gurgled! {Player1_re} siphoned some of {Player2_re}\'s {Notes_re} ability!', re.IGNORECASE),
+    'Chain': re.compile(f'The Instability (?:chains|spreads) to the {name_re}\'s {Player1_re}!', re.IGNORECASE),
+    'Hit By Pitch': re.compile(f'{Player1_re} hits {Player2_re} with a pitch! {name_re} is now {Notes_re}!', re.IGNORECASE),
+    'Party': re.compile(f'{Player1_re} is Partying!', re.IGNORECASE),
+    'Peanut': re.compile(f'[\\w ]+ (?:pitch|hitt)er {Player1_re} swallowed a stray Peanut and had an? {Notes_re} reaction!', re.IGNORECASE),
+    'Red Hot': re.compile(f'{Player1_re} is (no longer )?Red Hot', re.IGNORECASE),
+    'Deshelling': re.compile(f'The Birds pecked {Player1_re} free!', re.IGNORECASE),
+    'Big Peanut': re.compile(f'A Big Peanut crashes into the field, encasing {Player1_re}!', re.IGNORECASE),
+    'Sun 2': re.compile(f'Sun 2 set a Win upon the {Team1_re}', re.IGNORECASE),
+    'Black Hole': re.compile(f'The Black Hole swallowed a Win from the {Team1_re}!', re.IGNORECASE)
 }
 
 
@@ -44,7 +46,6 @@ def set_name(re_match, group_name, game, sample):
         player = re_match.group(group_name)
         sample.set_arg(group_name, f'[[{player}]]')
         team = info.get_player_team(player, game.season, game.day)
-        # print(f'{player}: {team}')
         sample.set_arg(f'{group_name}Team', team)
 
 
@@ -109,7 +110,7 @@ def get_game_outcomes(season, day):
 
     print(f'Processing Season {season} Day {day}')
 
-    if not bool(games) and day != 1:
+    if not bool(games) and day != 1 and season < 2:
         return get_game_outcomes(season + 1, 1)
     elif bool(games) and games_all_ended or season == 4:
         game_record['season'] = season
@@ -145,6 +146,7 @@ def get_last_date():
 
 
 def main():
+    #  info.prefill_player_infos(teams)
     get_last_date()
 
 

@@ -7,6 +7,8 @@ import wikitextparser as wtp
 import sys
 
 
+# python pwb.py protect -cat:Shadows -edit:sysop -summary: "Locking Shadows Players"
+
 # i am tired of dealing with york's antics
 def get_item_name(bat):
     if bat:
@@ -70,18 +72,18 @@ def add_uuid(player, site, always, error_count, page_count):
                 return (page_count, error_count + 1, always)
 
 
-def add_new(player, site, always, error_count, page_count):
+def add_new(player, site, always, error_count, page_count, team_name, role, is_shadowed):
     page = pwb.Page(site, player.name.replace(' ', '_'))
 
     name_split = player.name.split()
     name_split.pop(0)
     last_name = ' '.join(name_split)
 
-    team = player.league_team.full_name
+    new_category = 'Shadows' if is_shadowed else f'{role}s'
+    header = 'Shadows' if is_shadowed else 'New_Player_Header'
 
     text = f"""
-<includeonly>
-{{{{Template:New_Player_Header}}}} <!-- Remove this header and comment when adding community lore for the first time -->
+{{{{Template:{header}}}}} <!-- Remove this header and comment when adding community lore for the first time -->
 {{{{Player
 | title1={{{{{{PAGENAME}}}}}}
 <!-- Use the filename with the file type, but without the File: or Image: prefix-->
@@ -91,48 +93,49 @@ def add_new(player, site, always, error_count, page_count):
 
 <!-- Records: Basic information -->
 | aliases= <!-- IN GAME NAMES ONLY -->
-| team=[[{team}]]
+| team=[[{team_name}]]
 | former=
 | status=Active
 | dates= <!-- IRL dates active (ex. Jul 20 - Aug 31, 2020) -->
 <!-- Records: Statistical Information -->
 <!-- These are star ratings -->
-| batting={{{{Star Rating|0}}}}
-| pitching={{{{Star Rating|0}}}}
-| baserunning={{{{Star Rating|0}}}}
-| defense={{{{Star Rating|0}}}}
+| batting={{{{Star Rating|{player.batting_stars}}}}}
+| pitching={{{{Star Rating|{player.pitching_stars}}}}}
+| baserunning={{{{Star Rating|{player.baserunning_stars}}}}}
+| defense={{{{Star Rating|{player.defense_stars}}}}}
 | modification=
 <!-- These are taken from the pop-up box on clicking the player -->
 | item=
 | armor=
 | evolution=
-| ritual=
-| coffee=
-| blood=
-| fate=
-| soulscream=
+| ritual={player.ritual}
+| coffee={player.coffee.text}
+| blood={player.blood.text}
+| fate={str(player.fate)}
+| soulscream={player.soulscream}
+| uuid={player.id}
 <!-- For community lore info box fields, see Template:Player/doc & delete this note. -->
 }}}}
-'''{{{{PAGENAME}}}}''' is a (lineup player/pitcher) for the [[{team}]], and has been with the team since [[Season]], Day #.
+'''{{{{PAGENAME}}}}''' is a {role} for the [[{team_name}]]{' in the [[Shadows]].' if is_shadowed else ', and has been with the team since [[Season]], Day #.'}
 
-
+<!--
 == Official League Records ==
-{last_name} joined the [[ILB]] as a (hitter/pitcher) for the [[{team}]] on [[Season]], Day # (after the [[incineration]] of [[Incinerated Player]]) (via the [[Season#Blessings | '''Blessing name''']] blessing).
-
+{last_name} joined the [[ILB]] as a {role} for the [[{team_name}]] on [[Season]], Day #
+(after the [[incineration]] of [[Incinerated Player]])
+(via the [[Season#Blessings | '''Blessing name''']] blessing).
+-->
 <!-- When adding community lore about a player, add the template {{{{Community Lore}}}} at the top of the section and delete this note. -->
-
 
 ----
 <references />
-{{{{TeamNavSelector|$1}}}}
-{{{{TeamCategorySelector|$1}}}}
+{{{{TeamNavSelector|{team_name}}}}}
+{{{{TeamCategorySelector|{team_name}}}}}
 <br />
-<!-- Delete this note and whichever of the following categories do not apply: -->
-[[Category:Players]]
-[[Category:Lineup Players]]
-[[Category:Pitchers]]
+<!-- Add categories as needed. You might want:
 [[Category:Players who Replaced an Incinerated Player]]
-</includeonly>
+-->
+[[Category:Players]]
+[[Category:{new_category}]]
     """
 
     wtppage = wtp.parse(text)
@@ -160,7 +163,8 @@ def add_new(player, site, always, error_count, page_count):
                 pwb.bot.open_webbrowser(page)
 
         if always or choice == 'y':
-            result = page.put(newtext, summary='Create player experiment', asynchronous=True)
+            result = page.put(newtext, summary=f'Create \'{player.name}\' page', asynchronous=True)
+
             if result is None:
                 print(f'Created player page for {player.name}.')
                 return (page_count + 1, error_count, always)
@@ -217,7 +221,7 @@ def edit_existing(player, site, always, error_count, page_count):
 
 
 # for each player...
-def wiki_edit(player, site, always, error_count, page_count):
+def wiki_edit(player, site, always, error_count, page_count, team_name, role, is_shadowed):
     # create the UUID redirect
     (page_count, error_count, always) = add_uuid(player, site, always, error_count, page_count)
 
@@ -225,7 +229,7 @@ def wiki_edit(player, site, always, error_count, page_count):
 
     if (page.exists() is not True):
         # create the player page
-        (page_count, error_count, always) = add_new(player, site, always, error_count, page_count)
+        (page_count, error_count, always) = add_new(player, site, always, error_count, page_count, team_name, role, is_shadowed)
     else:
         # try to edit the existing player
         (page_count, error_count, always) = edit_existing(player, site, always, error_count, page_count)
@@ -238,7 +242,7 @@ def wiki_edit(player, site, always, error_count, page_count):
 @click.option('--player_ids', help='Player UUIDs...')
 def main(player_id, player_ids):
     site = pwb.Site()
-    always = True
+    always = False
     error_count = 0
     page_count = 0
 
@@ -255,12 +259,17 @@ def main(player_id, player_ids):
         teams = Team.load_all()
 
         for team in teams.values():
-            if team.card != -1:  # only counting teams in play because I'm lazy
-                for batter in team.lineup:
-                    (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count)
+            for batter in team.lineup:
+                (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', False)
 
-                for pitcher in team.rotation:
-                    (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count)
+            for pitcher in team.rotation:
+                (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', False)
+
+            for batter in team.bench:
+                (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', True)
+
+            for pitcher in team.bullpen:
+                (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', True)
 
     print(f'Updated {page_count} pages. Error count: {error_count}.')
 

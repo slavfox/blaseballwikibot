@@ -103,6 +103,10 @@ venv.bak/
 .spyderproject
 .spyproject
 
+blaseballwiki
+pywikibot.lwp
+logs
+
 # Rope project settings
 .ropeproject
 
