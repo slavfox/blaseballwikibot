@@ -11,15 +11,12 @@ import sys
 
 # i am tired of dealing with york's antics
 def get_item_name(bat):
-    if bat:
-        if bat.text == 'Vibe Check':
-            return '[[Legendary Items|Vibe Check]]'
-        elif bat.text == 'The 2-Blood Blagonball':
-            return '[[Blagonballs|The 2-Blood Blagonball]]'
-        else:
-            return bat.text
+    if bat.name == 'Vibe Check':
+        return '[[Legendary Items|Vibe Check]]'
+    elif bat.name == 'The 2-Blood Blagonball':
+        return '[[Blagonballs|The 2-Blood Blagonball]]'
     else:
-        return 'None'
+        return bat.name
 
 
 def process_infobox(player, templates):
@@ -44,9 +41,12 @@ def process_infobox(player, templates):
             true_template.set_arg(name, f'{{{{Star Rating|{value}}}}}', preserve_spacing=True)
 
     def set_modifications():
+        armor = [f'{{{{Modif|{player.armor.name.lower()}}}}}'] if player.armor.name != 'None' else []
+        bat = [f'{{{{Modif|{player.bat.name.lower()}}}}}'] if player.bat.name != 'None' else []
         playermods = player.perm_attr + player.seas_attr  # anything shorter and i don't care
-        mod_text = [f'{{{{Modif|{element.value.lower()}}}}}' for idx, element in enumerate(playermods)]
-        mod_text = '<br />'.join(mod_text)
+        print(player.perm_attr)
+        mod_text = [f'{{{{Modif|{element.title.lower()}}}}}' for idx, element in enumerate(playermods)]
+        mod_text = '<br />'.join(mod_text + armor + bat)
         set_template('modifications', mod_text)
 
     set_modifications()
@@ -54,13 +54,13 @@ def process_infobox(player, templates):
     set_wiki_stars('pitching', player.pitching_stars)
     set_wiki_stars('baserunning', player.baserunning_stars)
     set_wiki_stars('defense', player.defense_stars)
-    set_template('blood', player.blood.text)
-    set_template('coffee', player.coffee.text)
+    set_template('blood', player.blood)
+    set_template('coffee', player.coffee)
     set_template('ritual', player.ritual)
     set_template('fate', str(player.fate))
     set_template('soulscream', player.soulscream)
     set_template('uuid', player.id)
-    set_template('armor', player.armor.text if player.armor else 'None')
+    set_template('armor', player.armor.name)
     set_template('item', get_item_name(player.bat))
 
     return templates
@@ -257,18 +257,18 @@ def main(player_id, player_ids):
 
     if (player_id):
         player = Player.load_one(player_id)  # Load player from blaseball-mike
-        (page_count, error_count, always) = wiki_edit(player, site, always, error_count, page_count)
+        (page_count, error_count, always) = wiki_edit(player, site, always, error_count, page_count, None, None, False)
 
     elif (player_ids):
         ids_list = player_ids.split(',')
         for player_id in ids_list:
             player = Player.load_one(player_id)  # Load player from blaseball-mike
-            (page_count, error_count, always) = wiki_edit(player, site, always, error_count, page_count)
+            (page_count, error_count, always) = wiki_edit(player, site, always, error_count, page_count, None, None, False)
     else:
         teams = Team.load_all()
 
         for team in teams.values():
-            if team.stadium != None:
+            if team.nickname == 'Shoe Thieves':
                 for batter in team.lineup:
                     (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', False)
 
