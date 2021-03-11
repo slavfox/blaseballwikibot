@@ -167,7 +167,8 @@ def get_last_date():
 
     if (game_record['season'] != int(last_game.arguments[0].value) or game_record['day'] != int(last_game.arguments[1].value)):
         print(new_outcomes)
-        page.put(page.text.replace(last_game.string, new_outcomes), summary="Automated event update...", minor=True)
+        page.put(page.text.replace(last_game.string, new_outcomes),
+                 summary=f"Automated event update up to S{game_record['season']}G{game_record['game']}", minor=True)
     else:
         print('No need to update...')
 
