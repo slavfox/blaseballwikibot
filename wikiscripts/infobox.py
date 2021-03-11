@@ -49,7 +49,7 @@ def process_infobox(player, templates):
         mod_text = '<br />'.join(mod_text + armor + bat)
         set_template('modifications', mod_text)
 
-    set_modifications()
+    #set_modifications()
     set_wiki_stars('batting', player.batting_stars)
     set_wiki_stars('pitching', player.pitching_stars)
     set_wiki_stars('baserunning', player.baserunning_stars)
@@ -275,11 +275,11 @@ def main(player_id, player_ids):
                 for pitcher in team.rotation:
                     (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', False)
 
-                for batter in team.bench:
-                    (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', True)
+                # for batter in team.bench:
+                #     (page_count, error_count, always) = wiki_edit(batter, site, always, error_count, page_count, team.full_name, 'Batter', True)
 
-                for pitcher in team.bullpen:
-                    (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', True)
+                # for pitcher in team.bullpen:
+                #     (page_count, error_count, always) = wiki_edit(pitcher, site, always, error_count, page_count, team.full_name, 'Pitcher', True)
 
     print(f'Updated {page_count} pages. Error count: {error_count}.')
 
