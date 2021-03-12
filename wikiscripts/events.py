@@ -53,7 +53,7 @@ def set_name_and_team(re_match, group_name, game, sample):
                     print(f'{player}: Found historical team data: {teamObj.full_name}')
                     sample.set_arg(f'{group_name}Team', f'[[{teamObj.full_name}]]')
                 elif playerObj.team_id is not None:
-                    teamObj = Team.load(teamId)
+                    teamObj = Team.load(playerObj.team_id)
                     print(f'{player}: Falling back to current team: {teamObj.full_name}')
                     sample.set_arg(f'{group_name}Team', f'maybe? [[{playerObj.league_team.full_name}]]')
                 else:
