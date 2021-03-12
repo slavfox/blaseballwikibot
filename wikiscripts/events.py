@@ -14,7 +14,7 @@ teams = Team.load_all()
 outcomes_dict = {
     'Shelling': re.compile(f'{Player1_re} tasted the infinite and Shelled {Player2_re}!', re.IGNORECASE),
     'Incineration': re.compile(f'Rogue Umpire incinerated ({Team1_re} (?:pitch|hitt)er)?{Player1_re}!( Replaced by {Player2_re})?', re.IGNORECASE),
-    'Shuffle': re.compile(f'The {Team1_re} (had several players|were completely|had their \\w+) shuffled in the Reverb!', re.IGNORECASE),
+    'Shuffle': re.compile(f'The {Team1_re} (had several players|were|were completely|had their \\w+) shuffled in the Reverb!', re.IGNORECASE),
     'Feedback': re.compile(f'{Player1_re} and {Player2_re} switched teams in the feedback!', re.IGNORECASE),
     'Reverberating': re.compile(f'{Player1_re} is now Reverberating wildly!', re.IGNORECASE),
     'Blooddrain': re.compile(f'The Blooddrain gurgled! {Player1_re} siphoned some of {Player2_re}\'s {Notes_re} ability!', re.IGNORECASE),
